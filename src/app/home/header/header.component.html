@@ -1,0 +1,110 @@
+<mat-toolbar color="primary"  class="header fixed-top">
+  <div class="d-flex w-100">
+    <div class="left">
+      <!-- side menu -->
+      <button class="" (click)="sidenavToggler.emit()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+       <!-- logo -->
+      <a routerLink="/">
+         <img class="mx-1" src='../../../favicon.ico'>
+      </a>
+    </div>
+    <div class="middle flex-grow-1">
+
+    </div>
+    <div class="right">
+      <div class="d-flex">
+        <!-- search -->
+        <div class="search-box">
+          <button  (click)="onChange()" mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-toolbar  *ngIf="searchChange" class="search bg-white d-flex">
+            <mat-icon>search</mat-icon>
+            <input (keyup.enter)="onSearch()"
+                  [(ngModel)]="searchText"
+                  class="w-100 border border-0 px-3"
+                  placeholder="search"
+                  autofocus>
+            <button (click)="onSearch()" mat-icon-button>
+              <mat-icon>send</mat-icon>
+            </button>
+            <button (click)="onChange()" mat-icon-button>
+              <mat-icon>{{ searchChange ? 'close' : 'search'}}</mat-icon>
+            </button>
+          </mat-toolbar>
+        </div>
+        <!-- cart -->
+        <a
+           routerLink="/cart"
+           mat-icon-button>
+          <mat-icon [matBadge]="cartItems?.length"
+                    matBadgeColor="accent"
+                    matBadgePosition="above after"
+                    matBadgeOverlap="true"
+                    matBadgeSize="small"
+                    [matBadgeHidden]="!cartItems?.length"
+                  >shopping_cart</mat-icon>
+        </a>
+        <!-- person -->
+        <a mat-icon-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>person</mat-icon>
+        </a>
+        <mat-menu #userMenu="matMenu" class="p-2">
+          <a class="bg-light rounded mb-1" routerLink="/product-list" mat-menu-item>
+            <mat-icon>list</mat-icon><span>Product List</span>
+          </a>
+          <a class="bg-light rounded mb-1" *ngIf="!auth" routerLink="/login" mat-menu-item>
+            <mat-icon>input</mat-icon><span>login</span>
+          </a>
+          <a class="bg-light rounded mb-1" *ngIf="!auth" routerLink="/signup" mat-menu-item>
+            <mat-icon>chrome_reader_mode</mat-icon><span>register</span>
+          </a>
+          <a class="bg-light rounded mb-1" *ngIf="auth" routerLink="/profile" mat-menu-item>
+            <mat-icon>perm_identity</mat-icon><span>profile</span>
+          </a>
+          <a class="bg-light rounded mb-1"
+             *ngIf="auth"
+             routerLink="/seller-product-list"
+             mat-menu-item>
+             <mat-icon>list</mat-icon><span>Seller Product List</span>
+          </a>
+          <a class="bg-light rounded mb-1"
+             *ngIf="auth"
+             routerLink="/add-product"
+             mat-menu-item>
+            <mat-icon>add</mat-icon><span>add product</span>
+          </a>
+          <a class="bg-light rounded mb-1"
+              *ngIf="auth"
+              routerLink="/checkout"
+              mat-menu-item>
+            <mat-icon>shopping_basket</mat-icon><span>checkout</span>
+          </a>
+          <!-- add address -->
+          <a class="bg-light rounded mb-1"
+             *ngIf="auth"
+             routerLink="/add-address"
+             mat-menu-item>
+          <mat-icon>home</mat-icon><span>address</span>
+          </a>
+          <!-- address-list -->
+          <a class="bg-light rounded mb-1"
+             *ngIf="auth"
+             routerLink="/address-list"
+             mat-menu-item>
+            <mat-icon>place</mat-icon><span>address-list</span>
+          </a>
+          <!-- logout -->
+          <a  class="bg-light rounded mb-1"
+              *ngIf="auth"
+              mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon><span>logout</span>
+          </a>
+        </mat-menu>
+        <!-- right end -->
+      </div>
+    </div>
+  </div>
+</mat-toolbar>

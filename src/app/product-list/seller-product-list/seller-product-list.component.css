@@ -1,0 +1,22 @@
+::ng-deep.mat-paginator-range-label{
+ margin: 0px !important;
+}
+.product-image {
+  max-height: 50px;
+  width: 50px;
+}
+
+.fontSize {
+  font-size: 12px;
+}
+
+@media screen and (min-width: 600px) {
+  .product-image {
+    max-height: 100px;
+    width: 100px;
+  }
+
+  .fontSize {
+    font-size: 18px;
+  }
+}

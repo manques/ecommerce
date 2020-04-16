@@ -1,0 +1,18 @@
+.location{
+  position: relative;
+  background-color: blue;
+}
+
+.edit-location{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.mat-card {
+  width: 400px;
+}
+
+.overflow{
+  overflow: scroll;
+}

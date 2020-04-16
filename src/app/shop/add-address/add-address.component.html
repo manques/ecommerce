@@ -1,0 +1,156 @@
+<!-- spinner -->
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<!-- address form container -->
+<div *ngIf="!spinner" class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center py-3">
+        <!-- address form card -->
+        <mat-card class="address-card p-3">
+          <h3 class="text-center">address</h3>
+          <!-- form -->
+          <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+            <!-- name -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>name</mat-label>
+                <mat-icon matPrefix>person</mat-icon>
+                <input matInput formControlName="name"  spellcheck="false"/>
+                <mat-icon *ngIf="addressForm.controls.name.valid" matSuffix class="text-success">check_circle</mat-icon>
+                <mat-error *ngIf="addressForm.controls.pincode.invalid
+                           && addressForm.controls.locality.touched">
+                  name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- phone -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>phone</mat-label>
+                <mat-icon matPrefix>phone</mat-icon>
+                <input matInput formControlName="phone">
+                <mat-icon *ngIf="addressForm.controls.phone.valid" matSuffix class="text-success">
+                  check_circle
+                </mat-icon>
+                <mat-error *ngIf="addressForm.controls.pincode.invalid
+                           && addressForm.controls.locality.touched">
+                  phone is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- pincode -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>pincode</mat-label>
+                <mat-icon matPrefix>lock</mat-icon>
+                <input type="number" formControlName="pincode" matInput>
+                <mat-icon class="text-success" matSuffix *ngIf="addressForm.controls.pincode.valid">
+                  check_circle
+                </mat-icon>
+                <mat-error *ngIf="addressForm.controls.pincode.invalid
+                && addressForm.controls.locality.touched">
+                   pincode is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- locality -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>locality</mat-label>
+                <mat-icon matPrefix>local_hotel</mat-icon>
+                <input matInput formControlName="locality" spellcheck="false">
+                <mat-icon class="text-success" matSuffix *ngIf="addressForm.controls.locality.valid">
+                  check_circle
+                </mat-icon>
+                <mat-error *ngIf="addressForm.controls.locality.invalid
+                                  && addressForm.controls.locality.touched">
+                  locality is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- address -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>address</mat-label>
+                <mat-icon matPrefix>home</mat-icon>
+                <textarea matInput formControlName="address" spellcheck="false"></textarea>
+                <mat-icon matSuffix class="text-success" *ngIf="addressForm.controls.address.valid">
+                  check_circle
+                </mat-icon>
+                <mat-error *ngIf="addressForm.controls.address.invalid
+                && addressForm.controls.address.touched">
+                   address is required
+              </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- city/district/town -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>city/district/town</mat-label>
+                <mat-icon matPrefix>account_balance</mat-icon>
+                <input matInput formControlName="town" spellcheck="false">
+                <mat-icon matSuffix class="text-success" *ngIf="addressForm.controls.town.valid">
+                  check_circle
+                </mat-icon>
+                <mat-error *ngIf="addressForm.controls.town.invalid
+                           && addressForm.controls.town.touched">
+                           city/district/town is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- state -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>state</mat-label>
+                <mat-select formControlName="state">
+                  <mat-option [value]="state" *ngFor="let state of states">{{state}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="addressForm.controls.state.invalid
+                           && addressForm.controls.state.touched">
+                           state is required
+               </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- landmark -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>landmark(optional)</mat-label>
+                <mat-icon matPrefix>landscape</mat-icon>
+                <input matInput formControlName="landmark" spellcheck="false">
+              </mat-form-field>
+            </div>
+            <!-- alternative phone -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>alternative phone(optional)</mat-label>
+                <mat-icon matPrefix>phone</mat-icon>
+                <input matInput formControlName="alternativePhone">
+              </mat-form-field>
+            </div>
+            <!-- address type -->
+            <div class="d-flex justify-content-center pb-2">
+              <div class="w-100">
+                <p>address type</p>
+                <mat-radio-group formControlName="addressType">
+                  <mat-radio-button value="home"><mat-icon class="fontSize">home</mat-icon><span class="fontSize">home(all day devlivery)</span></mat-radio-button>
+                  <mat-radio-button value="office"><mat-icon lass="fontSize p pr-1">apartment</mat-icon><span class="fontSize">work(delivery between 10AM - 5PM)</span></mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <!-- submit -->
+            <button class="w-100" color="accent" mat-raised-button
+                    [disabled]="addressForm.invalid">
+              update address
+            </button>
+            <!-- end -->
+          </form>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

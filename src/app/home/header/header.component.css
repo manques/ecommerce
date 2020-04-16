@@ -1,0 +1,16 @@
+.search {
+  position: absolute;
+  left: 0;
+  top: 56px;
+  right: 0;
+}
+
+@media screen and (min-width: 600px){
+  .search{
+    top: 64px;
+  }
+}
+
+a:hover {
+  color: white;
+}

@@ -1,0 +1,19 @@
+.profile-card {
+  width: 350px;
+}
+.border-radius{
+  border-radius: 18px;;
+}
+
+.products{
+  overflow-x: auto;
+  width: 100%;
+  height: 90px;
+  white-space: nowrap;
+}
+.image-size{
+  width: 90px;
+  height: 90px;
+  display: inline-block;
+}
+

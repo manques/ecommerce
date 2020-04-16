@@ -1,0 +1,102 @@
+<!-- spinner -->
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<!-- product list table -->
+<div class="container-fluid">
+  <div *ngIf="!spinner && items.length" class="row">
+    <!-- main product list -->
+    <div class="col-md-8">
+     <div class="d-flex justify-content-center py-3">
+        <!--  add table -->
+        <mat-table  class="w-100"  [dataSource]="dataSource">
+          <!-- image column -->
+          <ng-container matColumnDef="image">
+            <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div class="d-flex justify-content-start align-items-center py-2">
+                <img class="image-table" [src]="element.product.image">
+              </div>
+            </mat-cell>
+          </ng-container>
+          <!-- detail columns  -->
+          <ng-container matColumnDef="detail">
+            <mat-header-cell *matHeaderCellDef>Detail</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div class="d-flex justify-content-start align-items-center py-2">
+                <div>
+                  <p class="p-0 m-0 text-secondary">{{element.product.name}}</p>
+                  <p class="p-0 m-0">{{(element.product.price) * (element.quantity) | currency:'INR'}}</p>
+                </div>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <!-- quantity -->
+          <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef>quantity</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div class="d-flex justify-content-center">
+                <p class="text-center">{{element.quantity}}</p>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <!-- delete  -->
+          <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef>delete</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div class="d-flex justify-content-center">
+                <button (click)="onDelete(element._id)" color="accent" mat-icon-button>
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <!-- enf column -->
+          <!-- row  -->
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+     </div>
+    </div>
+    <!-- place order -->
+    <div class="col-md-4">
+      <div class="d-flex justify-content-center py-3">
+        <mat-card class="order-card">
+          <div class="border border-top-0 border-left-0 border-right-0">
+            <h3 class="text-secondary"><strong>PRODUCT DETAILS</strong></h3>
+          </div>
+          <div class="py-3 px-2">
+            <div class="d-flex justify-content-between">
+              <h3>Price ({{items.length}} items)</h3>
+              <h3>{{subtotal | currency: 'INR'}}</h3>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h3>Delivery Fee</h3>
+              <h3>{{delivery | currency:'INR'}}</h3>
+            </div>
+            <div class="d-flex justify-content-between border-top border-bottom border-warning px-2 py-3">
+              <h3 class="text-primary m-0">Total Price</h3>
+              <h3 class="text-primary m-0">{{total | currency:'INR'}}</h3>
+            </div>
+          </div>
+          <div>
+            <button routerLink="/checkout" mat-raised-button class="w-100 py-2" color="accent">
+              <mat-icon>shop</mat-icon><span class="pl-1">PLACE ORDER</span>
+            </button>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <!-- no item(s) in cart -->
+  <div *ngIf="!spinner && !items.length" class="row">
+    <div class="col-md-12">
+      <div class="p-3 d-flex justify-content-center">
+        <h1>No  element in cart</h1>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<!-- spinner -->
+<div *ngIf="spinner" class="row w-100 p-0 m-0 mt-1">
+  <div class="col-md-12 w-100 p-0 m-0">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div class="col-md-12 p-5">
+    <div class="d-flex justify-content-center">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>
+<div  class="container-fluid">
+
+  <!-- loader -->
+  <div *ngIf="!spinner && !success" class="row">
+    <div class="col-md-12 d-flex justify-content-center p-3">
+      <mat-card class="product-card">
+        <!-- title -->
+        <h2 class="text-center">Register</h2>
+        <form class="px-3" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <!-- name -->
+          <div class="d-flex justify-content-center p-0 m-0">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-icon matPrefix>person</mat-icon>
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" />
+              <mat-icon class="text-success" *ngIf="signupForm.controls.name.valid" matSuffix>check</mat-icon>
+              <mat-error *ngIf="!signupForm.controls.name.untouched && signupForm.controls.name.invalid">
+                name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- email -->
+          <div class="d-flex justify-content-center">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-label>email</mat-label>
+              <input matInput formControlName="email" />
+              <mat-icon class="text-success" *ngIf="signupForm.controls.email.valid" matSuffix>check</mat-icon>
+              <mat-error *ngIf="!signupForm.controls.email.untouched && signupForm.controls.email.invalid">
+                email is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- phone -->
+          <div class="d-flex justify-content-center">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-icon matPrefix>phone</mat-icon>
+              <mat-label>phone</mat-label>
+              <input matInput formControlName="phone">
+              <mat-icon class="text-success" *ngIf="signupForm.controls.phone.valid" matSuffix>check</mat-icon>
+              <mat-error *ngIf="!signupForm.controls.phone.untouched && signupForm.controls.phone.invalid">
+                phone is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- password -->
+          <div class="d-flex justify-content-center">
+            <mat-form-field class="w-100" appearance="outline">
+              <button type="button" (click)="pass = !pass" mat-icon-button matPrefix>
+                <mat-icon>{{ !pass ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-label>password</mat-label>
+              <input #password [type]="pass ? 'password': 'text'" matInput formControlName="password">
+              <mat-icon class="text-success" *ngIf="signupForm.controls.password.valid" matSuffix>check</mat-icon>
+              <mat-hint *ngIf="signupForm.controls.password.dirty"
+                        >
+                        At least 6 characters   {{password.value?.length}}/6
+              </mat-hint>
+              <mat-error *ngIf="!signupForm.controls.password.untouched && signupForm.controls.password.invalid">
+                password is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+           <!-- confirm password -->
+           <div class="d-flex justify-content-center">
+            <mat-form-field class="w-100" appearance="outline">
+              <button type="button" (click)="pass = !pass" mat-icon-button matPrefix>
+                <mat-icon>{{ !pass ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-label>password</mat-label>
+              <input (keyup)="onConfirm()" [type]="pass ? 'password': 'text'" matInput formControlName="confirmPassword">
+              <mat-icon class="text-success" *ngIf="onConfirm()" matSuffix>check</mat-icon>
+              <mat-error *ngIf="!onConfirm() && signupForm.controls.confirmPassword.touched">password is not match</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- isSeller -->
+          <div class="d-flex justify-content-center py-1">
+            <!-- <mat-form-field appearance="outline"> -->
+              <mat-checkbox formControlName="isSeller"></mat-checkbox> &nbsp;
+              <mat-label>isSeller</mat-label>
+            <!-- </mat-form-field> -->
+          </div>
+          <!-- submit button -->
+          <button type="submit"
+                  class="w-100"
+                  mat-raised-button
+                  color="accent"
+                  [disabled]="signupForm.invalid">
+                  signup
+          </button>
+          <!-- end -->
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="success" class="row">
+    <div class="col-md-12 py-3 d-flex justify-content-center">
+      <mat-card class="product-card">
+        <h3 class="text-center {{data.success ? 'text-success' : 'text-warning'}}">{{data.message}}</h3>
+        <div class="d-flex justify-content-between">
+          <button class="bg-light" mat-raised-button (click)="back()">
+            <mat-icon>arrow_back</mat-icon> back
+          </button>
+          <button class="bg-success text-white" routerLink="/login" mat-raised-button>
+            login<mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

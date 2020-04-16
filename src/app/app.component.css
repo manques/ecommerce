@@ -1,0 +1,18 @@
+mat-sidenav-container {
+  width: 100%;
+  min-height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+.main-content {
+  margin-top: 56px;
+}
+
+@media screen and (min-width: 600px){
+  .main-content{
+    margin-top: 64px;
+  }
+}

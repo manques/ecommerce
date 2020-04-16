@@ -1,0 +1,105 @@
+<!-- spinner -->
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<!-- product page design -->
+<div *ngIf="!spinner" class="container-fluid">
+  <!-- row 1 -->
+  <div class="row">
+    <div class="col-md-12 py-3">
+      <mat-card class="product-card">
+        <!-- row 2 -->
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-4">
+            <!-- product img -->
+            <div class="d-flex justify-content-center">
+              <img class="product-image" [src]="product.image" [alt]="product.name">
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-8">
+            <!-- product detail , decription, button -->
+            <!-- row 3 -->
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <!-- product detail  &  add cart button -->
+                <!-- row 4 -->
+                <div class="row">
+                  <div class="col-12 col-sm-7">
+                    <!-- product detail -->
+                    <div class="p-2 p-md-3  bg-light text-center text-md-left">
+                      <h2 class="p-0 m-0 text-secondary">{{product.name}}</h2>
+                      <h2 class="p-0 m-0 ">{{product.price | currency : 'INR'}}</h2>
+                      <div class="d-flex justify-content-center justify-content-md-start">
+                        <div>
+                          <div>
+                            <button mat-mini-fab (click)=" (quantity > 1) ? (quantity = quantity - 1) : '' ">
+                              <mat-icon>remove</mat-icon>
+                            </button>
+                            <mat-form-field class="quantity-box" style="width: 50px;" appearance="outline">
+                              <input type="number" matInput [(ngModel)]="quantity" min="1" max="10" />
+                            </mat-form-field>
+                            <button mat-mini-fab (click)="(quantity < 10) ? (quantity = quantity + 1) : '' ">
+                              <mat-icon>add</mat-icon>
+                            </button>
+                            <p class="text-warning warning-text text-center p-0 m-0" *ngIf="quantity === 10"><span>{{quantityWarning}}</span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="text-seconday">{{product.shortDescription}}</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-5 mt-2 mt-sm-0">
+                    <!-- product add button -->
+                    <div class="d-flex justify-content-center">
+                      <div class="p-0 p-md-3  w-100">
+                        <mat-card class="cart-card p-3">
+                          <button (click)="onAddToCart(product)"  color="primary" mat-raised-button class="w-100 mb-3">
+                            <mat-icon>add_shopping_cart</mat-icon><span class="pl-2">add to cart</span>
+                          </button>
+                          <button color="primary" mat-raised-button class="w-100">
+                            <mat-icon>payment</mat-icon><span class="pl-2">buy now</span>
+                          </button>
+                        </mat-card>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-12 mt-3">
+                <!-- product description , features & review -->
+                <div class="d-flex justify-content-center">
+                  <mat-tab-group class="w-100" >
+                    <!-- features -->
+                    <mat-tab label="features">
+                      <div class="py-3 px-1 px-sm-3">
+                        <h3>{{product.features}}</h3>
+                      </div>
+                    </mat-tab>
+                    <!-- long description -->
+                    <mat-tab label="description">
+                      <div class="py-3 px-1 px-sm-3">
+                        <h3>{{product.longDescription}}</h3>
+                      </div>
+                    </mat-tab>
+                    <!-- review -->
+                    <mat-tab label="review">
+                      <div class="py-3 px-1 px-sm-3">
+                        <h3>
+                          review
+                        </h3>
+                      </div>
+                    </mat-tab>
+                    <!-- end -->
+                  </mat-tab-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

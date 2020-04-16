@@ -1,0 +1,18 @@
+.product-card {
+  width: 350px;
+}
+.product-image {
+  width: 100%;
+  height: auto;
+}
+
+.image-card {
+  position: relative;
+}
+.image-card > button{
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  right: calc(50% - 20px);
+  color: green;
+}

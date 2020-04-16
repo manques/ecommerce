@@ -1,0 +1,12 @@
+.user-card {
+  width: 350px;
+}
+
+.location{
+  position: relative;
+}
+.edit-location{
+  position: absolute;
+  right: 0;
+  top: 0;
+}

@@ -1,0 +1,115 @@
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<div *ngIf="!spinner" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center py-3">
+        <mat-card class="add-product-card p-3">
+           <!-- title -->
+          <h2 class="text-center">Add Product</h2>
+          <form  [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <!-- name -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>title</mat-icon>
+                <mat-label>product name</mat-label>
+                <input matInput formControlName="name" />
+                <mat-icon class="text-success" matSuffix *ngIf="productForm.controls.name.valid">check</mat-icon>
+                <mat-error
+                          *ngIf="productForm.controls.name.touched && productForm.controls.name.invalid">
+                          name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- price -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>card_travel</mat-icon>
+                <mat-label>Price</mat-label>
+                <input matInput formControlName="price">
+                <mat-icon class="text-success" matSuffix *ngIf="productForm.controls.price.valid">
+                  check
+                </mat-icon>
+                <mat-error *ngIf="productForm.controls.price.invalid && productForm.controls.price.touched">
+                  price is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- Quantity -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>add_circle_outline</mat-icon>
+                <mat-label>Quantity</mat-label>
+                <input matInput formControlName="quantity">
+                <mat-icon class="text-success" matSuffix *ngIf="productForm.controls.quantity.valid">check</mat-icon>
+                <mat-error *ngIf="productForm.controls.quantity.invalid && productForm.controls.quantity.touched">
+                  quantity is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- image  -->
+            <div clas="d-flex justify-content-center">
+              <div>
+                <input type="file" #imgFile style="display: none;" (change)="onChange($event)" />
+                <div class="d-flex justify-content-center">
+                  <img *ngIf="imgUrl" [src]="imgUrl" class="product-image" />
+                </div>
+                <div class="d-flex py-2 justify-content-center">
+                  <button type="button" mat-raised-button (click)="imgFile.click()">
+                    <mat-icon>attachment</mat-icon>
+                    <span class="pl-2">add product</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- category -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>category</mat-icon>
+                <mat-label>category</mat-label>
+                <mat-select formControlName="category">
+                  <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+                </mat-select>
+                <mat-icon class="text-success" matSuffix *ngIf="productForm.controls.category.valid">
+                  check
+                </mat-icon>
+                <mat-error *ngIf="productForm.controls.category.touched && productForm.controls.category.invalid">
+                  category selection required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- short description -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>short description</mat-label>
+                <textarea matInput formControlName="shortDescription"></textarea>
+                <mat-error *ngIf="productForm.controls.shortDescription.touched && productForm.controls.shortDescription.invalid">short description is required</mat-error>
+              </mat-form-field>
+            </div>
+            <!-- features -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>features</mat-label>
+                <textarea matInput formControlName="features"></textarea>
+              </mat-form-field>
+            </div>
+            <!-- long description -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>long description</mat-label>
+                <textarea matInput formControlName="longDescription"></textarea>
+              </mat-form-field>
+            </div>
+            <!-- submit button -->
+            <button mat-raised-button class="w-100" color="accent" [disabled]="productForm.invalid">add product</button>
+            <!-- end -->
+          </form>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

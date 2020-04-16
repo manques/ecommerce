@@ -1,0 +1,87 @@
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<!--  stepper  -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+     <div class="d-flex justify-content-center py-3">
+        <!-- horizonatal stepper -->
+      <mat-horizontal-stepper linear labelPosition="bottom" class="w-100">
+        <ng-template matStepperIcon="edit">
+          <mat-icon>check</mat-icon>
+        </ng-template>
+        <!-- step login -->
+        <mat-step [completed]="auth">
+          <ng-template matStepLabel>
+            login
+          </ng-template>
+          <!-- unauth user -- login -->
+          <app-login *ngIf="!auth"></app-login>
+          <!-- auth user get profile -->
+          <div class="d-flex justify-content-center">
+            <mat-card class="profile-card" *ngIf="auth">
+              <div class="px-3">
+                <h1 class="text-center">
+                  <mat-icon>face</mat-icon>
+                </h1>
+                <h3 class="m-0 p-0">{{user?.name}}</h3>
+                <h3 class="p-0 m-0">{{user?.email}}</h3>
+              </div>
+            </mat-card>
+          </div>
+          <!-- actions button -->
+          <div class="d-flex justify-content-center">
+            <div class="profile-card d-flex justify-content-center pt-2">
+              <button matStepperNext  mat-flat-button>
+                <span>next</span><mat-icon>navigate_next</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+        <!-- step 2 address -->
+        <mat-step [completed]="addressId">
+          <!-- assign addresss (addressChangePopup)="addressCompleted" -->
+          <ng-template matStepLabel>Address</ng-template>
+          <app-address-list (changeAddressPopup)="onAddress($event)"></app-address-list>
+          <div class="d-flex justify-content-center w-100">
+            <div class="profile-card d-flex justify-content-center">
+              <button mat-flat-button matStepperPrevious>
+                <mat-icon>navigate_before</mat-icon> back
+              </button>
+            </div>
+          </div>
+        </mat-step>
+        <!-- cart view -->
+        <mat-step>
+          <ng-template matStepLabel>order summery</ng-template>
+          <div class="d-flex justify-content-center">
+            <mat-card class="profile-card my-3">
+              <h3 class="text-secondary text-center p-0 m-0">supermart basket({{carts?.length}} items)</h3>
+              <h3 class="text-center text-success p-0 m-0">Total: {{total | currency: 'INR'}}</h3>
+              <div #pro class="products">
+                <div class="image-size"  *ngFor="let cart of carts">
+                  <img class="w-100 h-100" [src]="cart.product.image" [alt]="cart.product.name" />
+                </div>
+              </div>
+            </mat-card>
+          </div>
+          <div class="d-flex justify-content-center w-100">
+            <div class="profile-card d-flex justify-content-between">
+              <button mat-flat-button matStepperPrevious>
+                <mat-icon>navigate_before</mat-icon> back
+              </button>
+              <button (click)="onContinueForPayment()" class="px-5 border-radius" mat-raised-button color="primary">
+                <mat-icon>payment</mat-icon> continue
+              </button>
+            </div>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+     </div>
+    </div>
+  </div>
+</div>

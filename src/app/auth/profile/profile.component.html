@@ -1,0 +1,59 @@
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<div *ngIf="!spinner && user" class="container-fluid my-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center pt-3">
+        <mat-card class="user-card p-3">
+          <h4 class="text-center">
+            <strong>{{user.name}}</strong>
+          </h4>
+          <p class="">{{user.email}}</p>
+          <p class="">{{user.phone}}</p>
+          <div>
+            <!-- start -->
+            <a (click)="onSeller()">
+              <button mat-icon-button >
+                <mat-icon>{{isSeller ? 'adjust': 'panorama_fish_eye'}}</mat-icon>
+              </button>isSeller
+            </a>
+            <!-- end -->
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <!-- link -->
+    <div *ngIf="isSeller" class="col-md-12">
+      <div class="d-flex justify-content-center">
+        <mat-card class="user-card">
+          <div class="d-flex justify-content-between">
+            <button routerLink="/add-product" mat-raised-button>
+              <mat-icon>add</mat-icon> <span class="pl-2">Add Product</span>
+            </button>
+            <button routerLink="/seller-product-list" mat-raised-button>
+              <mat-icon>list</mat-icon> <span class="pl-2">List Product</span>
+            </button>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- address link page -->
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center">
+       <mat-card class="user-card p-3">
+        <div class="d-flex justify-content-center w-100">
+          <button routerLink="/add-address" mat-raised-button>
+            <mat-icon>add_location</mat-icon> <span>add addresss</span>
+          </button>
+        </div>
+       </mat-card>
+      </div>
+    </div>
+    <!-- end -->
+  </div>
+</div>

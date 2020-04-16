@@ -1,0 +1,7 @@
+{
+  "env": {
+    "dbUsername": "manques",
+    "dbPassword": "1234Qwer",
+    "jwtKey": 987654321
+  }
+}

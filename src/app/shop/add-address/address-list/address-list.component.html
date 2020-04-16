@@ -1,0 +1,52 @@
+<div  class="container-fluid">
+  <div *ngIf="!spinner" class="row">
+      <!-- address -->
+      <div  class="col-md-12">
+        <div class="d-flex justify-content-center">
+          <mat-card class="user-card p-3 my-3">
+            <h3 class="text-center">addresss list</h3>
+            <!-- switch button -->
+            <button mat-stroked-button class="w-100 mb-2" (click)="addressSwitch = !addressSwitch">
+              <mat-icon>add_location</mat-icon> add {{addressSwitch ? 'new': 'old'}} location
+            </button>
+            <!-- address list -->
+              <mat-radio-group *ngIf="addressSwitch" [(ngModel)]="chooseId" class="d-flex flex-column w-100">
+                <mat-radio-button class="bg-light d-flex overflow location mb-3 p-3 rounded"
+                                  [value]="address._id"
+                                  (change)="changeAddress(address._id)"
+                                  *ngFor="let address of addresses">
+                  <button type="button" class="edit-location text-secondary" mat-icon-button>
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <div class="">
+                    <p class="p-0 m-0">{{address.name}}, {{address.phone}}</p>
+                    <div class="p-0 m-0" style="word-wrap: break-word">
+                      {{address.locality}}, {{address.address}},
+                      {{address.town}}, {{address.state}},
+                      {{address.pincode}},
+                      landmark: {{address.landmark}}
+                    </div>
+                    <div *ngIf="chooseId === address._id"  class="d-flex justify-content-start py-2">
+                      <button  matStepperNext color="primary" mat-raised-button class="delivery-button px-3">
+                        <mat-icon>add_location</mat-icon>delivery here
+                      </button>
+                    </div>
+                  </div>
+                </mat-radio-button>
+              </mat-radio-group>
+             <!-- address form -->
+              <div *ngIf="!addressSwitch">
+                <app-add-address></app-add-address>
+              </div>
+          </mat-card>
+        </div>
+      </div>
+  </div>
+</div>
+<!-- spinner -->
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

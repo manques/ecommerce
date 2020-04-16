@@ -1,0 +1,78 @@
+<!-- spinner -->
+<div *ngIf="spinner" class="p-0 m-0">
+  <mat-progress-bar></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<div *ngIf="!spinner" class="container-fluid">
+  <div *ngIf="products.length" class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center py-3 p-md-3 ">
+        <table class="w-100" mat-table [dataSource]="dataSource">
+          <!-- image columns -->
+         <ng-container matColumnDef="image">
+            <th class="pl-1 m-0 text-info" mat-header-cell *matHeaderCellDef>image</th>
+            <td class="pl-1 m-0" mat-cell *matCellDef="let element">
+              <div class="p-0 m-0 d-flex  align-items-center">
+                <img [routerLink]="['/product', element._id]" class="product-image p-0 m-0 py-2" [src]="element.image">
+              </div>
+            </td>
+         </ng-container>
+         <!-- name/title -->
+         <ng-container matColumnDef="name">
+          <th class="p-0 m-0 text-info" mat-header-cell *matHeaderCellDef>detail</th>
+          <td class="m-0 p-0" mat-cell *matCellDef="let element">
+            <div class="p-0 m-0 d-flex flex-column ">
+             <p [routerLink]="['/product', element._id]" class="fontSize p-0 m-0"><strong>{{element.name}}</strong></p>
+             <p class="fontSize p-0 m-0">{{element.price  | currency:'INR'}}</p>
+            </div>
+          </td>
+         </ng-container>
+         <!-- quantity -->
+         <ng-container matColumnDef="quantity">
+          <th class="p-0 m-0 text-info" mat-header-cell *matHeaderCellDef>quantity</th>
+          <td class="m-0 p-0" mat-cell *matCellDef="let element">
+            <div class="d-flex p-0 m-0 ">
+              <p class="fontSize">{{element.quantity}}</p>
+            </div>
+          </td>
+         </ng-container>
+         <!-- edit -->
+         <ng-container matColumnDef="edit">
+           <th class="p-0 m-0 text-info" mat-header-cell *matHeaderCellDef>edit</th>
+           <td class="m-0 p-0" mat-cell *matCellDef="let element">
+             <div class="d-flex p-0 m-0">
+               <button [routerLink]="['/edit-seller-product', element._id]" class="fontSize" mat-icon-button color="primary">
+                 <mat-icon>edit</mat-icon>
+               </button>
+             </div>
+           </td>
+         </ng-container>
+         <!-- delete -->
+         <ng-container matColumnDef="delete">
+          <th class="p-0 m-0 text-info" mat-header-cell *matHeaderCellDef>delete</th>
+          <td class="p-0 m-0" mat-cell *matCellDef="let element">
+            <div class="p-0 m-0 d-flex">
+              <button (click)="onDelete(element._id)" color="accent" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+         </ng-container>
+         <!-- row -->
+         <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+   <!-- no prodcut(s) added by selller -->
+   <div class="row">
+    <div class="col-md-12">
+      <div class="p-3 d-flex justify-content-center">
+        <h1>NO product(s) added by seller</h1>
+      </div>
+    </div>
+   </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="row p-0 m-0">
+  <div class="col-md-12 p-0 m-0">
+    <div class="bg-light d-flex justify-content-between p-3 m-0">
+      <div class="d-flex justify-content-center align-items-center">
+       <a class="d-flex" (click)="sidenavClose.emit()" routerLink="/">
+        <img src="../../../favicon.ico" />
+        <div class="d-flex justify-content-center text-dark align-items-center">
+          <span style="font-size: 20px;"><strong>&nbsp; Helpect.com</strong></span>
+        </div>
+       </a>
+      </div>
+      <div>
+        <button class="text-secondary" (click)="sidenavClose.emit()" mat-icon-button><mat-icon><strong>close</strong></mat-icon></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 ">
+   <div class="p-3 w-100">
+    <mat-chip-list class="w-100">
+      <!-- prodcut list -->
+      <mat-chip class="w-100"
+                color="accent"
+                routerLink="/product-list"
+                (click)="sidenavClose.emit()"
+                selected>
+        <mat-icon>list</mat-icon><span class="pl-2">product list</span>
+      </mat-chip>
+      <!-- login -->
+      <mat-chip class="w-100"
+                *ngIf="!auth"
+                color="accent"
+                (click)="sidenavClose.emit()"
+                routerLink="/login"
+                selected>
+        <mat-icon>input</mat-icon> <span class="pl-2">login</span>
+      </mat-chip>
+       <!-- register -->
+       <mat-chip (click)="sidenavClose.emit()"
+                routerLink="/signup"
+                *ngIf="!auth"
+                class="w-100"
+                color="accent" selected>
+        <mat-icon>chrome_reader_mode</mat-icon> <span class="pl-2">register</span>
+       </mat-chip>
+       <!-- profile -->
+       <mat-chip (click)="sidenavClose.emit()"
+                 routerLink="/profile"
+                 *ngIf="auth"
+                 class="w-100"
+                 color="accent"
+                 selected>
+         <mat-icon>account_box</mat-icon> <span class="pl-2">profile</span>
+       </mat-chip>
+       <!-- add product -->
+       <mat-chip (click)="sidenavClose.emit()"
+                 routerLink="/add-product"
+                 *ngIf="auth"
+                 class="w-100"
+                 color="accent"
+                 selected>
+         <mat-icon>list</mat-icon> <span class="pl-2">add product</span>
+       </mat-chip>
+        <!-- seller product -list -->
+        <mat-chip (click)="sidenavClose.emit()"
+                  routerLink="/seller-product-list"
+                  *ngIf="auth"
+                  class="w-100"
+                  color="accent"
+                  selected>
+                  <mat-icon>list</mat-icon><span class="pl-2">Seller Product List</span>
+        </mat-chip>
+        <!-- checkout -->
+        <mat-chip (click)="sidenavClose.emit()"
+                  routerLink="/checkout"
+                  *ngIf="auth"
+                  class="w-100"
+                  color="accent"
+                  selected>
+          <mat-icon>shopping_basket</mat-icon><span class="pl-2">checkout</span>
+        </mat-chip>
+        <!-- address -->
+        <mat-chip (click)="sidenavClose.emit()"
+                  routerLink="/add-address"
+                  *ngIf="auth"
+                  class="w-100"
+                  color="accent"
+                  selected>
+          <mat-icon>home</mat-icon><span class="pl-2">address</span>
+        </mat-chip>
+       <!-- logout -->
+       <mat-chip  *ngIf="auth" (click)="logout()" class="w-100" color="accent" selected>
+        <mat-icon>eject</mat-icon> <span class="pl-2">logout</span>
+       </mat-chip>
+    </mat-chip-list>
+   </div>
+  </div>
+</div>
+

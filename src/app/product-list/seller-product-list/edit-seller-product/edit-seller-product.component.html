@@ -1,0 +1,149 @@
+<!-- spinner -->
+<div *ngIf="spinner">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <div class="d-flex justify-content-center p-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<!-- update form -->
+<div  class="container-fluid">
+  <div *ngIf="!spinner" class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center py-3">
+        <mat-card class="product-card p-3">
+          <h2 class="text-center"><strong>update product</strong></h2>
+          <form  [formGroup]="updateProductForm" (ngSubmit)="onSubmit()">
+            <!-- image -->
+            <div class="d-flex justify-content-center pb-2">
+              <div class="image-card w-100">
+                <img (click)="file1.click()" [src]="imgUrl" class="product-image">
+                <button (click)="file1.click()" type="button" mat-icon-button class="shadow-lg">
+                  <mat-icon>attach_file</mat-icon>
+                </button>
+                <input style="display: none;" type="file" #file1 (change)="onChange($event)" >
+              </div>
+            </div>
+            <!-- name -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>title</mat-icon>
+                <mat-label>name</mat-label>
+                <input matInput formControlName="name" />
+                <mat-icon matSuffix class="text-success"
+                  *ngIf="updateProductForm.controls.name.dirty
+                  && updateProductForm.controls.name.valid">
+                  update
+               </mat-icon>
+               <mat-error *ngIf="updateProductForm.controls.name.invalid">
+                 name is required
+               </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- price -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>money</mat-icon>
+                <mat-label>price</mat-label>
+                <input matInput formControlName="price" />
+                <mat-icon matSuffix
+                  class="text-success"
+                  *ngIf="updateProductForm.controls.price.dirty
+                  && updateProductForm.controls.price.valid">
+                  update
+                </mat-icon>
+                <mat-error *ngIf="updateProductForm.controls.price.invalid">price is required</mat-error>
+              </mat-form-field>
+            </div>
+            <!-- category -->
+            <div class="d-flex just-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>category</mat-icon>
+                <mat-label>category</mat-label>
+                <input matInput formControlName="category" />
+                <mat-icon matSuffix class="text-success"
+                          *ngIf="updateProductForm.controls.category.dirty
+                          && updateProductForm.controls.category.valid">
+                  update
+                </mat-icon>
+                <mat-error *ngIf="updateProductForm.controls.category.invalid">
+                  category is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- quantity -->
+            <div clas="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-icon matPrefix>exposure</mat-icon>
+                <mat-label>quantity</mat-label>
+                <input matInput formControlName="quantity" />
+                <mat-icon matSuffix
+                          class="text-success"
+                          *ngIf="updateProductForm.controls.quantity.valid
+                          && updateProductForm.controls.quantity.dirty">
+                  update
+                </mat-icon>
+                <mat-error *ngIf="updateProductForm.controls.quantity.invalid">
+                  quantity is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- short description -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>short description</mat-label>
+                <textarea matInput formControlName="shortDescription"></textarea>
+                <mat-icon matSuffix
+                          class="text-success"
+                          *ngIf="updateProductForm.controls.shortDescription.valid
+                          && updateProductForm.controls.shortDescription.dirty">
+                  update
+                </mat-icon>
+                <mat-error *ngIf="updateProductForm.controls.shortDescription.invalid">
+                  short description is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- features -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>features</mat-label>
+                <textarea matInput formControlName="features"></textarea>
+                <mat-icon matSuffix
+                          class="text-success"
+                          *ngIf="updateProductForm.controls.features.valid
+                          && updateProductForm.controls.features.dirty">
+                  update
+                </mat-icon>
+              </mat-form-field>
+            </div>
+            <!-- long description -->
+            <div class="d-flex justify-content-center">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>long description</mat-label>
+                <textarea matInput formControlName="longDescription"></textarea>
+                <mat-icon matSuffix
+                          class="text-success"
+                          *ngIf="updateProductForm.controls.longDescription.valid
+                          && updateProductForm.controls.longDescription.dirty">
+                  update
+                </mat-icon>
+              </mat-form-field>
+            </div>
+            <!-- update product button -->
+            <div *ngIf="!updateProductForm.dirty" class="d-flex justify-content-center">
+              <mat-error class="text-warning">no change into data</mat-error>
+            </div>
+            <button class="w-100"
+                    mat-raised-button
+                    type="submit"
+                    color="accent"
+                    [disabled]="!updateProductForm.valid">
+                update product
+            </button>
+            <!-- end -->
+            </form>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

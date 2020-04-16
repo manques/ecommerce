@@ -1,0 +1,81 @@
+ <!-- spinner -->
+<div *ngIf="spinner" class="row m-0 p-0">
+  <div class="col-md-12 p-0 m-0">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div class="col-md-12 p-5">
+   <div class="d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
+   </div>
+  </div>
+</div>
+<!-- form -->
+<div  class="container-fluid">
+  <!-- form row -->
+  <div *ngIf="!spinner && !success" class="row">
+    <div class="col-md-12 py-5 d-flex justify-content-center">
+      <mat-card class="login-card rounded-lg">
+        <!-- title -->
+        <h4 class="text-center">Login</h4>
+        <form  class="p-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <!-- username -->
+          <div class="d-flex justify-content-center">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-icon matPrefix>person</mat-icon>
+              <mat-label>Username(email/phone)</mat-label>
+              <input matInput formControlName="emailPhone" />
+              <mat-icon class="text-success" matSuffix *ngIf="loginForm.controls.emailPhone.valid">check</mat-icon>
+              <mat-error *ngIf="!loginForm.controls.emailPhone.untouched && loginForm.controls.emailPhone.invalid">
+                username is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- password -->
+          <div class="d-flex justify-content-center">
+            <mat-form-field class="w-100" appearance="outline">
+              <button type="button" mat-icon-button (click)="pass = !pass" matPrefix>
+                <mat-icon>{{pass ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-label>password</mat-label>
+              <input matInput formControlName="password" [type]="!pass ? 'password' : 'text'">
+              <mat-icon class="text-success" matSuffix *ngIf="loginForm.controls.password.valid">
+                check
+              </mat-icon>
+              <mat-error *ngIf="!loginForm.controls.password.untouched && loginForm.controls.password.invalid">
+                password is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- submit -->
+          <button type="submit"
+                  class="w-100"
+                  color="accent"
+                  mat-raised-button
+                  [disabled]="loginForm.invalid">
+                  login
+          </button>
+          <!-- end -->
+        </form>
+      </mat-card>
+    </div>
+  </div>
+  <!-- submit error -->
+  <div *ngIf="success" class="row">
+    <div class="col-md-12">
+      <div class="py-5 d-flex justify-content-center">
+        <mat-card class="login-card">
+          <h3 class="text-center text-danger">{{data.message}}</h3>
+         <div class="d-flex justify-content-between">
+          <button (click)="back()" mat-raised-button class="bg-light">
+            <mat-icon>arrow_back</mat-icon> back
+          </button>
+          <button routerLink="/signup" mat-raised-button class="bg-light">
+            <mat-icon>arrow_forward</mat-icon> register
+          </button>
+         </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+</div>
